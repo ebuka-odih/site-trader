@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\AiTraderPlanController;
 use App\Http\Controllers\Admin\AiTraderController;
 use App\Http\Controllers\Admin\AdminSettingsController;
+use App\Http\Controllers\Admin\DataExportController;
 use App\Http\Controllers\Admin\ReferralController as AdminReferralController;
 
 Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -136,4 +137,13 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin', 'as' => 'a
     Route::post('/settings/livechat/update', [AdminSettingsController::class, 'updateLivechatSettings'])->name('settings.livechat.update');
     Route::post('/settings/website/update', [AdminSettingsController::class, 'updateWebsiteSettings'])->name('settings.website.update');
     Route::get('/referrals', [AdminReferralController::class, 'index'])->name('referrals.index');
+
+    // Data Export
+    Route::get('/export', [DataExportController::class, 'index'])->name('export.index');
+    Route::get('/export/users', [DataExportController::class, 'exportUsers'])->name('export.users');
+    Route::get('/export/deposits', [DataExportController::class, 'exportDeposits'])->name('export.deposits');
+    Route::get('/export/withdrawals', [DataExportController::class, 'exportWithdrawals'])->name('export.withdrawals');
+    Route::get('/export/trades', [DataExportController::class, 'exportTrades'])->name('export.trades');
+    Route::get('/export/mining', [DataExportController::class, 'exportMining'])->name('export.mining');
+    Route::get('/export/staking', [DataExportController::class, 'exportStaking'])->name('export.staking');
 });
