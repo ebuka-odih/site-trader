@@ -1,0 +1,127 @@
+ <form action="{{ route('user.placeTrade') }}" method="POST">
+                      @csrf
+                     <div>
+                         @if(session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session()->get('success') }}
+                        </div>
+                    @endif
+                     @if(session()->has('error'))
+                        <div class="alert alert-danger">
+                            {{ session()->get('error') }}
+                        </div>
+                    @endif
+                     @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                     </div>
+                  <div class="d-flex justify-content-between ">
+
+                     <div class="market-trade-buy col-md-12 col-lg-6">
+                      <div class="input-group">
+                        <input type="number" name="amount" class="form-control" placeholder="Amount" >
+                        <div class="input-group-append">
+                          <span class="input-group-text">{{ auth()->user()->currency ?? 'USD' }}</span>
+                        </div>
+                      </div>
+                        <div class="form-group">
+                            <label for="">Pairs</label>
+                            <select name="trade_pair_id" id="" class="form-control">
+                                @foreach($pairs as $item)
+                                    @if($item->type == 'crypto')
+                                        <option value="{{ $item->id }}">{{ $item->pair }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Leverage</label>
+                                    <select class="custom-select" name="leverage" id="leverage" >
+                                        <option value="10">1:10</option><option value="20">1:20</option><option value="30">1:30</option><option value="40">1:40</option><option value="50">1:50</option><option value="60">1:60</option><option value="70">1:70</option><option value="80">1:80</option><option value="90">1:90</option><option value="100">1:100</option><option value="110">1:110</option><option value="120">1:120</option><option value="130">1:130</option><option value="140">1:140</option><option value="150">1:150</option><option value="160">1:160</option><option value="170">1:170</option><option value="180">1:180</option><option value="190">1:190</option><option value="200">1:200</option><option value="210">1:210</option><option value="220">1:220</option><option value="230">1:230</option><option value="240">1:240</option><option value="250">1:250</option><option value="260">1:260</option><option value="270">1:270</option><option value="280">1:280</option><option value="290">1:290</option><option value="300">1:300</option><option value="310">1:310</option><option value="320">1:320</option><option value="330">1:330</option><option value="340">1:340</option><option value="350">1:350</option><option value="360">1:360</option><option value="370">1:370</option><option value="380">1:380</option><option value="390">1:390</option><option value="400">1:400</option><option value="410">1:410</option><option value="420">1:420</option><option value="430">1:430</option><option value="440">1:440</option><option value="450">1:450</option><option value="460">1:460</option><option value="470">1:470</option><option value="480">1:480</option><option value="490">1:490</option><option value="500">1:500</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Duration</label>
+                                    <select class="custom-select" name="duration" id="expire" ><option value="1">1 Minute</option><option value="2">2 Minutes</option><option value="3">3 Minutes</option><option value="4">4 Minutes</option><option value="5">5 Minutes</option><option value="10">10 Minutes</option><option value="15">15 Minutes</option><option value="30">30 Minutes</option><option value="60">1 Hour</option><option value="120">2 Hours</option><option value="180">4 Hours</option><option value="360">6 Hours</option><option value="720">12 Hours</option><option value="1440">1 Day</option><option value="2880">2 Days</option><option value="5320">3 Days</option><option value="7200">5 Days</option><option value="10080">7 Days</option></select>
+                                </div>
+                            </div>
+
+                        </div>
+                      <p>Bal: <span>{{ $user->formatAmount($user->balance) }}</span></p>
+                      <button class="btn buy" type="submit" name="action_type" value="buy">Buy</button>
+                    </div>
+                      <div class="market-trade-sell col-md-12 col-lg-6">
+                      <div class="input-group">
+                        <input type="number" name="amount" class="form-control" placeholder="Amount" >
+                        <div class="input-group-append">
+                          <span class="input-group-text">{{ auth()->user()->currency ?? 'USD' }}</span>
+                        </div>
+                      </div>
+                        <div class="form-group">
+                            <label for="">Pairs</label>
+                            <select name="trade_pair_id" id="" class="form-control">
+                                @foreach($pairs as $item)
+                                    @if($item->type == 'crypto')
+                                        <option value="{{ $item->id }}">{{ $item->pair }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Leverage</label>
+                                    <select class="custom-select" name="leverage" id="leverage" >
+                                        <option value="10">1:10</option><option value="20">1:20</option><option value="30">1:30</option><option value="40">1:40</option><option value="50">1:50</option><option value="60">1:60</option><option value="70">1:70</option><option value="80">1:80</option><option value="90">1:90</option><option value="100">1:100</option><option value="110">1:110</option><option value="120">1:120</option><option value="130">1:130</option><option value="140">1:140</option><option value="150">1:150</option><option value="160">1:160</option><option value="170">1:170</option><option value="180">1:180</option><option value="190">1:190</option><option value="200">1:200</option><option value="210">1:210</option><option value="220">1:220</option><option value="230">1:230</option><option value="240">1:240</option><option value="250">1:250</option><option value="260">1:260</option><option value="270">1:270</option><option value="280">1:280</option><option value="290">1:290</option><option value="300">1:300</option><option value="310">1:310</option><option value="320">1:320</option><option value="330">1:330</option><option value="340">1:340</option><option value="350">1:350</option><option value="360">1:360</option><option value="370">1:370</option><option value="380">1:380</option><option value="390">1:390</option><option value="400">1:400</option><option value="410">1:410</option><option value="420">1:420</option><option value="430">1:430</option><option value="440">1:440</option><option value="450">1:450</option><option value="460">1:460</option><option value="470">1:470</option><option value="480">1:480</option><option value="490">1:490</option><option value="500">1:500</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Duration</label>
+                                    <select class="custom-select" name="duration" id="expire" >
+                                        <option value="1">1 Minute</option>
+                                        <option value="2">2 Minutes</option><option value="3">3 Minutes</option><option value="4">4 Minutes</option><option value="5">5 Minutes</option><option value="10">10 Minutes</option><option value="15">15 Minutes</option><option value="30">30 Minutes</option><option value="60">1 Hour</option><option value="120">2 Hours</option><option value="180">4 Hours</option><option value="360">6 Hours</option><option value="720">12 Hours</option><option value="1440">1 Day</option><option value="2880">2 Days</option><option value="5320">3 Days</option><option value="7200">5 Days</option><option value="10080">7 Days</option></select>
+                                </div>
+                            </div>
+
+                        </div>
+                      <p>Bal: <span>{{ $user->formatAmount($user->balance) }}</span></p>
+                      <button class="btn sell" type="submit" name="action_type" value="sell">Sell</button>
+                    </div>
+
+                  </div>
+                </form>
+
+
+  <div>
+                                @if(session()->has('success'))
+                                    <div class="alert alert-success">
+                                        {{ session()->get('success') }}
+                                    </div>
+                                @endif
+                                @if(session()->has('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session()->get('error') }}
+                                    </div>
+                                @endif
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                            </div>

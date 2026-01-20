@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+    .scrollbar-hide::-webkit-scrollbar-track {
+        display: none;
+    }
+    .scrollbar-hide::-webkit-scrollbar-thumb {
+        display: none;
+    }
+}
+
+@layer components {
+    @keyframes shimmer {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(100%);
+        }
+    }
+    
+    .animate-shimmer {
+        animation: shimmer 2s infinite;
+    }
+    
+    @keyframes slide-up {
+        0% {
+            transform: translateY(10px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    
+    .animate-slide-up {
+        animation: slide-up 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    
+    /* Remove blue border/focus outline from Recharts */
+    .recharts-wrapper:focus,
+    .recharts-wrapper:focus-visible,
+    .recharts-responsive-container:focus,
+    .recharts-responsive-container:focus-visible,
+    .recharts-surface:focus,
+    .recharts-surface:focus-visible,
+    .recharts-wrapper *:focus,
+    .recharts-wrapper *:focus-visible,
+    .recharts-line:focus,
+    .recharts-line:focus-visible,
+    .recharts-line-curve:focus,
+    .recharts-line-curve:focus-visible,
+    .recharts-active-dot:focus,
+    .recharts-active-dot:focus-visible {
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    
+    .recharts-wrapper,
+    .recharts-line,
+    .recharts-line-curve,
+    .recharts-active-dot,
+    .recharts-dot {
+        outline: none !important;
+        border: none !important;
+    }
+    
+    /* Make chart interactive */
+    .recharts-line-curve {
+        cursor: crosshair !important;
+        pointer-events: stroke !important;
+    }
+}

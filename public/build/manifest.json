@@ -1,0 +1,53 @@
+{
+  "_LineChart-xzejqWQ7.js": {
+    "file": "assets/LineChart-xzejqWQ7.js",
+    "name": "LineChart",
+    "imports": [
+      "_client-C3EM7bU6.js"
+    ]
+  },
+  "_client-C3EM7bU6.js": {
+    "file": "assets/client-C3EM7bU6.js",
+    "name": "client"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-BChytxn6.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-CCNORQO9.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/dashboard.jsx": {
+    "file": "assets/dashboard-Bd7InoRj.js",
+    "name": "dashboard",
+    "src": "resources/js/dashboard.jsx",
+    "isEntry": true,
+    "imports": [
+      "_client-C3EM7bU6.js",
+      "_LineChart-xzejqWQ7.js"
+    ]
+  },
+  "resources/js/notifications.jsx": {
+    "file": "assets/notifications-QFULlwDm.js",
+    "name": "notifications",
+    "src": "resources/js/notifications.jsx",
+    "isEntry": true,
+    "imports": [
+      "_client-C3EM7bU6.js"
+    ]
+  },
+  "resources/js/trading.jsx": {
+    "file": "assets/trading-M4uq3R9r.js",
+    "name": "trading",
+    "src": "resources/js/trading.jsx",
+    "isEntry": true,
+    "imports": [
+      "_client-C3EM7bU6.js",
+      "_LineChart-xzejqWQ7.js"
+    ]
+  }
+}

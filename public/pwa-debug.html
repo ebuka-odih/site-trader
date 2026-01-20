@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PWA Debug</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1>PWA Debug Information</h1>
+    <div id="debug-info"></div>
+    <button onclick="testPrompt()">Test Install Prompt</button>
+    <button onclick="clearDismissed()">Clear Dismissed Status</button>
+    
+    <script>
+        const info = document.getElementById('debug-info');
+        
+        // Check service worker
+        if ('serviceWorker' in navigator) {
+            info.innerHTML += '<p>✅ Service Worker supported</p>';
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                info.innerHTML += `<p>Service Workers registered: ${registrations.length}</p>`;
+                registrations.forEach((reg, i) => {
+                    info.innerHTML += `<p>SW ${i + 1}: ${reg.scope}</p>`;
+                });
+            });
+        } else {
+            info.innerHTML += '<p>❌ Service Worker NOT supported</p>';
+        }
+        
+        // Check manifest
+        const manifestLink = document.querySelector('link[rel="manifest"]');
+        if (manifestLink) {
+            info.innerHTML += `<p>✅ Manifest link found: ${manifestLink.href}</p>`;
+            fetch(manifestLink.href)
+                .then(r => r.json())
+                .then(m => {
+                    info.innerHTML += `<p>✅ Manifest loaded: ${m.name}</p>`;
+                })
+                .catch(e => {
+                    info.innerHTML += `<p>❌ Manifest error: ${e.message}</p>`;
+                });
+        } else {
+            info.innerHTML += '<p>❌ Manifest link NOT found</p>';
+        }
+        
+        // Check standalone
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        info.innerHTML += `<p>Standalone mode: ${isStandalone}</p>`;
+        
+        // Check iOS
+        const isIOS = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase()) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        info.innerHTML += `<p>iOS: ${isIOS}</p>`;
+        
+        // Check dismissed status
+        const dismissed = localStorage.getItem('pwa-install-prompt-dismissed');
+        info.innerHTML += `<p>Prompt dismissed: ${dismissed}</p>`;
+        
+        // Load PWA scripts
+        const swScript = document.createElement('script');
+        swScript.src = '/js/pwa-sw-register.js';
+        document.body.appendChild(swScript);
+        
+        const promptScript = document.createElement('script');
+        promptScript.src = '/js/pwa-install-prompt.js';
+        promptScript.onload = () => {
+            info.innerHTML += '<p>✅ PWA scripts loaded</p>';
+            if (window.pwaInstallPrompt) {
+                info.innerHTML += '<p>✅ PWAInstallPrompt initialized</p>';
+            }
+        };
+        document.body.appendChild(promptScript);
+        
+        function testPrompt() {
+            if (window.pwaInstallPrompt) {
+                window.pwaInstallPrompt.triggerInstall();
+            } else {
+                alert('PWA Install Prompt not initialized');
+            }
+        }
+        
+        function clearDismissed() {
+            localStorage.removeItem('pwa-install-prompt-dismissed');
+            alert('Dismissed status cleared!');
+            location.reload();
+        }
+    </script>
+</body>
+</html>
+
